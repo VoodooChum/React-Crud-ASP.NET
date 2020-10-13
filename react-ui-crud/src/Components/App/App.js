@@ -18,7 +18,6 @@ import AppFooter from 'Components/AppFooter';
 function App() {
   return (
     <Container maxWidth="sm" className="App">
-      <Box>
       <Paper>
         <AppHeader />
         <Typography variant="h4" component="h1" gutterBottom>
@@ -32,7 +31,6 @@ function App() {
         </Button>
         <AppFooter />
       </Paper>
-      </Box>
     </Container>
   );
 }
