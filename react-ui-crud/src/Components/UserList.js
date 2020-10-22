@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Table, Button } from 'reactstrap';
 import RegistrationModal from './RegistrationModal';
 import { USERS_API_URL } from '../Constants';
-class DataTable extends Component {
+class UserList extends Component {
 
   constructor(props) {
     super(props);
@@ -77,4 +77,4 @@ class DataTable extends Component {
     </Table>;
   }
 }
-export default DataTable;
+export default UserList;

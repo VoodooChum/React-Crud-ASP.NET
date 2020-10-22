@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const API = axios;
 
-class RegistrationForm extends React.Component {
+class AddUser extends React.Component {
     state = {
         id: 0,
         name: '',
@@ -73,4 +73,4 @@ class RegistrationForm extends React.Component {
         </Form>;
     }
 }
-export default RegistrationForm;
+export default AddUser;
