@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zivMMvZWFvLaqZtbs0hmcqHRPNUvahm2QncnjNrF5P0dugTT3+6cuscxzNcZPUv7ctzKYJhRM90W2dwciNTn/g==",
+  "dgSpecHash": "V69QykVqduxw3YnkSMtO6zrBpX0o1TdjoUCM9IlGbNpp5u3fuos80yJexF3AyV51vMkcQ1pX1BsBMzZ3TYMKPQ==",
   "success": true,
-  "projectFilePath": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ReactASPCrud\\ReactASPCrud\\ReactASPCrud.csproj",
+  "projectFilePath": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ASP.NET-API\\API\\ReactASPCrud.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }

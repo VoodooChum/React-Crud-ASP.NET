@@ -1,17 +1,11 @@
-import React, { Cpmponent, Fragment }from 'react';
-import logo from './../../logo.svg';
+import React from 'react';
 import './App.css';
 import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import { Button, Paper } from '@material-ui/core';
-import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
+import {Paper } from '@material-ui/core';
 import AppHeader from 'Components/AppHeader';
 import AppFooter from 'Components/AppFooter';
+import Home from 'Components/Home';
+
 
 
 
@@ -20,15 +14,7 @@ function App() {
     <Container maxWidth="sm" className="App">
       <Paper>
         <AppHeader />
-        <Typography variant="h4" component="h1" gutterBottom>
-         
-        </Typography>
-        <Button variant="contained" color="primary">
-          Primary Button
-        </Button>
-        <Button variant="contained" color="secondary">
-          Secondary Button
-        </Button>
+        <Home />
         <AppFooter />
       </Paper>
     </Container>

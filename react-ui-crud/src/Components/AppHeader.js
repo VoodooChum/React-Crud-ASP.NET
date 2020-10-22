@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; // 1
 import {Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem} from 'reactstrap'; // 2
-import { Button, Paper, Box } from '@material-ui/core';
-import { spacing } from '@material-ui/system';
+import { Paper } from '@material-ui/core';
+
 
 
 class AppHeader extends Component { // 3
