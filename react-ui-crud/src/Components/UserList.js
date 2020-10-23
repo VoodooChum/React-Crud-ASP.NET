@@ -1,80 +1,174 @@
-import React, { Component } from 'react';
-import { Table, Button } from 'reactstrap';
-import RegistrationModal from './RegistrationModal';
-import { USERS_API_URL } from '../Constants';
-class UserList extends Component {
+import React, { Component } from "react";
+import UserDataService from "../services/user.service";
+import { Link } from "react-router-dom";
+
+export default class UserList extends Component {
 
   constructor(props) {
     super(props);
+    this.onChangeSearchName = this.onChangeSearchName.bind(this);
+    this.retrieveUsers = this.retrieveUsers.bind(this);
+    this.refreshList = this.refreshList.bind(this);
+    this.setActiveUser = this.setActiveUser.bind(this);
+    this.removeAllUsers = this.removeAllUsers.bind(this);
+    this.searchName = this.searchName.bind(this);
+
     this.state = {
-      items: this.props.items 
-    }
-    console.log(this.props.items);
+      users: [],
+      currentUser: null,
+      currentIndex: -1,
+      searchName: ""
+    };
   }
-  deleteItem = id => {
-    let confirmDeletion = window.confirm('Do you really wish to delete it?');
-    if (confirmDeletion) {
-      fetch(`${USERS_API_URL}/${id}`, {
-        method: 'delete',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+
+  componentDidMount() {
+    this.retrieveUsers();
+  }
+
+  onChangeSearchName(e) {
+    const searchName = e.target.value;
+
+    this.setState({
+      searchName: searchName
+    });
+  }
+
+  retrieveUsers() {
+    UserDataService.getAll()
+      .then(response => {
+        this.setState({
+          users: response.data
+        });
+        console.log(response.data);
       })
-        .then(res => {
-          this.props.deleteItemFromState(id);
-        })
-        .catch(err => console.log(err));
-    }
+      .catch(e => {
+        console.log(e);
+      });
   }
+
+  refreshList() {
+    this.retrieveUsers();
+    this.setState({
+      currentUser: null,
+      currentIndex: -1
+    });
+  }
+
+  setActiveUser(user, index) {
+    this.setState({
+      currentUser: user,
+      currentIndex: index
+    });
+  }
+
+  removeAllUsers() {
+    UserDataService.deleteAll()
+      .then(response => {
+        console.log(response.data);
+        this.refreshList();
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  searchName() {
+    UserDataService.findByTitle(this.state.searchName)
+      .then(response => {
+        this.setState({
+          users: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+
   render() {
-    const items = this.props.items;
-    return <Table striped>
-      <thead className="thead-dark">
-        <tr>
-          <th>Id</th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Document</th>
-          <th>Phone</th>
-          <th style={{ textAlign: "center" }}>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {!items || items.length <= 0 ?
-          <tr>
-            <td colSpan="6" align="center"><b>No Users yet</b></td>
-          </tr>
-          : items.map(item => (
-            <tr key={item.id}>
-              <th scope="row">
-                {item.id}
-              </th>
-              <td>
-                {item.name}
-              </td>
-              <td>
-                {item.email}
-              </td>
-              <td>
-                {item.document}
-              </td>
-              <td>
-                {item.phone}
-              </td>
-              <td align="center">
-                <div>
-                  <RegistrationModal
-                    isNew={false}
-                    user={item}
-                    updateUserIntoState={this.props.updateState} />
-                  &nbsp;&nbsp;&nbsp;
-                  <Button color="danger" onClick={() => this.deleteItem(item.id)}>Delete</Button>
-                </div>
-              </td>
-            </tr>
-          ))}
-      </tbody>
-    </Table>;
+    const { searchName, users, currentUser, currentIndex } = this.state;
+    return (
+      <div className="list row">
+        <div className="col-md-8">
+          <div className="input-group mb-3">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Search by name"
+              value={searchName}
+              onChange={this.onChangeSearchName}
+            />
+            <div className="input-group-append">
+              <button
+                className="btn btn-outline-secondary"
+                type="button"
+                onClick={this.searchName}
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <h4>Users List</h4>
+
+          <ul className="list-group">
+            {users &&
+              users.map((user, index) => (
+                <li
+                  className={
+                    "list-group-item " +
+                    (index === currentIndex ? "active" : "")
+                  }
+                  onClick={() => this.setActiveUser(user, index)}
+                  key={index}
+                >
+                  {user.name}
+                </li>
+              ))}
+          </ul>
+
+          <button
+            className="m-3 btn btn-sm btn-danger"
+            onClick={this.removeAllUsers}
+          >
+            Remove All
+          </button>
+        </div>
+        <div className="col-md-6">
+          {currentUser ? (
+            <div>
+              <h4>User</h4>
+              <div>
+                <label>
+                  <strong>Name:</strong>
+                </label>{" "}
+                {currentUser.name}
+              </div>
+              <div>
+                <label>
+                  <strong>Phone:</strong>
+                </label>{" "}
+                {currentUser.phone}
+              </div>
+              <Link
+                to={"/users/" + currentUser.id}
+                className="badge badge-warning"
+              >
+                Edit
+              </Link>
+            </div>
+          ) : (
+            <div>
+              <br />
+              <p>Please click on a User...</p>
+            </div>
+          )}
+        </div>
+      </div>
+    );
   }
 }
+
 export default UserList;

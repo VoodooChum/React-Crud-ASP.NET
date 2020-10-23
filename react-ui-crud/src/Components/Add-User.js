@@ -1,76 +1,162 @@
-import React from 'react';
-import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
-import { USERS_API_URL } from '../Constants';
-import axios from 'axios';
+import React, { Component } from "react";
+import UserDataService from "../services/user.service";
 
-const API = axios;
+export default class AddUser extends Component {
+  constructor(props) {
+    super(props);
+    this.onChangeName = this.onChangeName.bind(this);
+    this.onChangeDocument = this.onChangeDocument.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangePhone = this.onChangePhone.bind(this);
+    this.saveUser = this.saveUser.bind(this);
+    this.newUser = this.newUser.bind(this);
 
-class AddUser extends React.Component {
-    state = {
-        id: 0,
-        name: '',
-        document: '',
-        email: '',
-        phone: ''
-    }
-    componentDidMount() {
-        if (this.props.user) {
-            const { id, name, document, email, phone } = this.props.user
-            this.setState({ id, name, document, email, phone});
-        }
-    }
-    onChange = e => {
-        this.setState({ [e.target.name]: e.target.value })
-    }
-    submitNew = e => {
-        e.preventDefault();
-        API.post(`${USERS_API_URL}`, {
-          name: this.state.name,
-          document: this.state.document,
-          email: this.state.email,
-          phone: this.state.phone
-          })
-          .then(user => {
-              this.props.addUserToState(user);
-              this.props.toggle();
-          })
-          .catch(err => console.log(err));
-    }
-    submitEdit = e => {
-        e.preventDefault();
-        API.put(`${USERS_API_URL}/${this.state.id}`, {
-          name: this.state.name,
-          document: this.state.document,
-          email: this.state.email,
-          phone: this.state.phone
-          })
-          .then(() => {
-            this.props.toggle();
-            this.props.updateUserIntoState(this.state.id);
-          })
-          .catch(err => console.log(err));
-    }
+    this.state = {
+      id: null,
+      name: "",
+      email: "",
+      document: "", 
+      phone: "",
+
+      submitted: false,
+    };
+  }
+
+  onChangeName(e) {
+    this.setState({
+      name: e.target.value
+    });
+  }
+
+  onChangeDocument(e) {
+    this.setState({
+      document: e.target.value
+    });
+  }
+
+  onChangeEmail(e) {
+    this.setState({
+      email: e.target.value
+    });
+  }
+
+  onChangePhone(e) {
+    this.setState({
+      phone: e.target.value
+    });
+  }
+
+  saveUser() {
+    var user = {
+      name: this.state.name,
+      email: this.state.email,
+      document: this.state.document,
+      phone: this.state.phone,
+    };
+
+    UserDataService.create(user)
+      .then(response => {
+        this.setState({
+          id: response.data.id,
+          name: response.data.name,
+          document: response.data.document,
+          email: response.data.email,
+          phone: response.data.phone,
+
+          submitted: true
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  newUser() {
+    this.setState({
+      id: null,
+      name: "",
+      document: "",
+      email: "",
+      phone: "",
+
+      submitted: false
+    });
+  }
+
     render() {
-        return <Form onSubmit={this.props.user ? this.submitEdit : this.submitNew}>
-            <FormGroup>
-                <Label for="name">Name:</Label>
-                <Input type="text" name="name" onChange={this.onChange} value={this.state.name === '' ? '' : this.state.name} />
-            </FormGroup>
-            <FormGroup>
-                <Label for="document">Document:</Label>
-                <Input type="text" name="document" onChange={this.onChange} value={this.state.document === null ? '' : this.state.document} />
-            </FormGroup>
-            <FormGroup>
-                <Label for="email">Email:</Label>
-                <Input type="email" name="email" onChange={this.onChange} value={this.state.email === null ? '' : this.state.email} />
-            </FormGroup>
-            <FormGroup>
-                <Label for="phone">Phone:</Label>
-                <Input type="text" name="phone" onChange={this.onChange} value={this.state.phone === null ? '' : this.state.phone}
-                    placeholder="+1 999-999-9999" />
-            </FormGroup>
-            <Button>Send</Button>
-        </Form>;
+      return (
+        <div className="submit-form">
+          {this.state.submitted ? (
+            <div>
+              <h4>You submitted successfully!</h4>
+              <button className="btn btn-success" onClick={this.newUser}>
+                Add
+              </button>
+            </div>
+          ) : (
+            <div>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="name"
+                  required
+                  value={this.state.name}
+                  onChange={this.onChangeName}
+                  name="name"
+                />
+              </div>
+  
+              <div className="form-group">
+                <label htmlFor="document">Document</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="document"
+                  required
+                  value={this.state.document}
+                  onChange={this.onChangeDocument}
+                  name="document"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="email"
+                  required
+                  value={this.state.email}
+                  onChange={this.onChangeEmail}
+                  name="email"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="phone">Phone</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="phone"
+                  required
+                  value={this.state.phone}
+                  onChange={this.onChangePhone}
+                  name="phone"
+                />
+              </div>
+  
+              <button onClick={this.saveUser} className="btn btn-success">
+                Submit
+              </button>
+            </div>
+          )}
+        </div>
+      );
     }
-}
+  }  
+
+
 export default AddUser;
