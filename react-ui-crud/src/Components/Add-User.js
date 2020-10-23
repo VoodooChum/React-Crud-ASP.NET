@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import UserDataService from "../services/user.service";
+import UserDataService from "../Services/user.service";
 
 export default class AddUser extends Component {
   constructor(props) {
@@ -157,6 +157,3 @@ export default class AddUser extends Component {
       );
     }
   }  
-
-
-export default AddUser;
