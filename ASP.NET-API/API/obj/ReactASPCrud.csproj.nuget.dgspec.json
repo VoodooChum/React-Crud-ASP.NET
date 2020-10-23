@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ReactASPCrud\\ReactASPCrud\\ReactASPCrud.csproj": {}
+    "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ASP.NET-API\\API\\ReactASPCrud.csproj": {}
   },
   "projects": {
-    "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ReactASPCrud\\ReactASPCrud\\ReactASPCrud.csproj": {
+    "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ASP.NET-API\\API\\ReactASPCrud.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ReactASPCrud\\ReactASPCrud\\ReactASPCrud.csproj",
+        "projectUniqueName": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ASP.NET-API\\API\\ReactASPCrud.csproj",
         "projectName": "ReactASPCrud",
-        "projectPath": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ReactASPCrud\\ReactASPCrud\\ReactASPCrud.csproj",
+        "projectPath": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ASP.NET-API\\API\\ReactASPCrud.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ReactASPCrud\\ReactASPCrud\\obj\\",
+        "outputPath": "D:\\Brian Miller\\Dev\\React-Crud-ASP.NET\\ASP.NET-API\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
