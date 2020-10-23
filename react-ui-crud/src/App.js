@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import AddUser from "./components/Add-User";
-import User from "./components/User";
-import UserList from "./components/UserList";
+import AddUser from "./Components/Add-User";
+import User from "./Components/User";
+import UserList from "./Components/UserList";
 
 class App extends Component {
   render() {
@@ -17,7 +17,7 @@ class App extends Component {
           <div className="navbar-nav mr-auto">
             <li className="nav-item">
               <Link to={"/users"} className="nav-link">
-                Tutorials
+                Users
               </Link>
             </li>
             <li className="nav-item">
